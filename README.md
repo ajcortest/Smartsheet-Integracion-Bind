@@ -1,45 +1,39 @@
-# Smartsheet → JSON API
+# 🧠 Smartsheet Job Scheduler Service
 
-Micro‑servicio en FastAPI que recibe el **ID** de una hoja de Smartsheet y devuelve:
+Este proyecto es un **servicio automático en Python** que se conecta con **Smartsheet API** para revisar y ejecutar jobs programados por empresa, usando configuraciones personalizadas por fila desde una hoja de control.
 
-```json
-{
-  "header": ["Columna1", "Columna2", "..."],
-  "data": [
-    { "Columna1": "valor", "Columna2": "valor", "...": "..." }
-  ]
-}
-```
+## ⚙️ ¿Qué hace este proyecto?
 
-## Archivos
-| Archivo | Descripción |
-|---------|-------------|
-| `main.py` | Código principal con FastAPI + logging |
-| `requirements.txt` | Dependencias de Python |
-| `Dockerfile` | Contenedor listo para producción |
-| `README.md` | Esta guía rápida |
+- Revisa una hoja de configuración en Smartsheet.
+- Ejecuta tareas por empresa en intervalos definidos por cada una.
+- Guarda en la hoja la **última ejecución** y calcula la **siguiente ejecución**.
+- Usa `asyncio` para correr los jobs sin bloquear el flujo.
+- Loguea toda la actividad para monitorear cuándo se ejecuta cada empresa.
+- Funciona como microservicio con `FastAPI` + `Uvicorn`.
 
-## Uso rápido
+---
 
-```bash
-export SMARTSHEET_TOKEN="TU_TOKEN"
-uvicorn main:app --reload --port 8080
-curl http://localhost:8080/sheet/123456789
-```
+## 🧰 Tecnologías usadas
 
-### Docker
+- 🐍 Python 3.11+
+- 📋 FastAPI
+- 📡 Smartsheet SDK
+- 🕓 ZoneInfo (`tzdata` para zona horaria)
+- 🔁 Asyncio
+- 🗃️ Uvicorn
+
+---
+
+## 📦 Instalación
 
 ```bash
-docker build -t smartsheet-svc:0.1 .
-docker run -d -p 8080:8080 -e SMARTSHEET_TOKEN=$SMARTSHEET_TOKEN smartsheet-svc:0.1
-```
+# Clona el repo
+git clone https://github.com/tuusuario/nombre-del-repo.git
+cd nombre-del-repo
 
-### Despliegue en Oracle Cloud
+# Crea entorno virtual
+python -m venv .venv
+source .venv/Scripts/activate  # En Windows
 
-1. Sube la imagen a OCIR.  
-2. Lanza una VM o Container Instance con la variable `SMARTSHEET_TOKEN`.  
-3. Abre el puerto 8080 y consume:
-
-```bash
-curl http://IP_PUBLICA:8080/sheet/123456789
-```
+# Instala dependencias
+pip install -r requirements.txt
