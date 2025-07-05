@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+smartsheet-python-sdk==2.177.1
+urllib3==1.26.18
+httpx[http2]
+python-dotenv
